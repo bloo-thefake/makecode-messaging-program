@@ -1,5 +1,5 @@
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
-    radio.sendString(game.askForString("", 18))
+    radio.sendString("" + game.askForString("", 18) + " -" + username)
     console.log("Message sent!")
 })
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
@@ -16,8 +16,10 @@ radio.onReceivedString(function (receivedString) {
     text_list.push(receivedString)
 })
 let background = 0
+let username = ""
+username = game.askForString("", 6)
 radio.setGroup(16)
-radio.sendString("Someone joined!")
+radio.sendString("" + username + " joined!")
 forever(function () {
     if (background == 0) {
         scene.setBackgroundImage(assets.image`bg0`)
