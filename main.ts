@@ -1,5 +1,5 @@
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
-    radio.sendString("" + game.askForString("", 18) + " -" + username)
+    radio.sendString("" + game.askForString("", 14) + "-" + username)
     console.log("Message sent!")
 })
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
@@ -10,14 +10,16 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
 })
 radio.onReceivedString(function (receivedString) {
     let text_list: string[] = []
-    game.showLongText(receivedString, DialogLayout.Center)
+    game.showLongText(receivedString, DialogLayout.Full)
     console.log("\"Received message! Message:\"")
     console.log(receivedString)
     text_list.push(receivedString)
 })
 let background = 0
 let username = ""
-username = game.askForString("", 6)
+music.play(music.createSong(assets.song`tetris`), music.PlaybackMode.LoopingInBackground)
+game.showLongText("Just so you know: The Radio group is 16. This program only works with MakeCode compatible devices that can use MakeCode's radio feature. The micro:bit, for example, is one of these. Every version of this program SHOULD BE backwards compatible with every other version unless the Radio group is changed. Have fun, and remember to post any issues on the Git repo! - BLOO YA", DialogLayout.Full)
+username = game.askForString("", 4)
 radio.setGroup(16)
 radio.sendString("" + username + " joined!")
 forever(function () {
