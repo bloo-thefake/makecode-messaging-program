@@ -18,7 +18,7 @@ radio.onReceivedString(function (receivedString) {
 let background = 0
 let username = ""
 music.play(music.createSong(assets.song`tetris`), music.PlaybackMode.LoopingInBackground)
-game.showLongText("Just so you know: The Radio group is 16. This program only works with MakeCode compatible devices that can use MakeCode's radio feature. The micro:bit, for example, is one of these. Every version of this program SHOULD BE backwards compatible with every other version unless the Radio group is changed. Have fun, and remember to post any issues on the Git repo! - BLOO YA", DialogLayout.Full)
+game.showLongText("Just so you know: The Radio group is 16. This program only works with MakeCode compatible devices that can use MakeCode's radio feature. The micro:bit, for example, is one of these. Every version of this program SHOULD BE backwards compatible with every other version unless the Radio group is changed. Also, for some reason, the Radio function can only transmit up to 18 characters at a time. This is why I have limited the message character count to 14 and the username limit to 4, to make sure both always display properly. Please create a pull request if you know how to fix this issue. Have fun, and remember to post any issues on the Github repository! - BLOO YA    __CURRENT VERSION: 1.2__", DialogLayout.Full)
 username = game.askForString("", 4)
 radio.setGroup(16)
 radio.sendString("" + username + " joined!")
