@@ -3,10 +3,10 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     messageToSend = "" + game.askForString("Type a message.", 18 - username.length) + "-" + username
     radio.sendString(messageToSend)
     console.log("Message sent!")
-    messageLog.push("" + messageToSend + "[TIME SENT: " + game.runtime() + "]")
+    text_list.push(" " + messageToSend)
 })
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    game.showLongText("Messages (oldest to newest): " + messageLog + "|| END OF MESSAGES", DialogLayout.Full)
+    game.showLongText(text_list, DialogLayout.Full)
 })
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     background += -1
@@ -15,17 +15,20 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     background += 1
 })
 radio.onReceivedString(function (receivedString) {
-    game.showLongText(receivedString, DialogLayout.Full)
+    game.showLongText(receivedString, DialogLayout.Bottom)
     console.log("\"Received message! Message:\"")
     console.log(receivedString)
-    messageLog.push("" + messageToSend + "[TIME RECEIVED: " + game.runtime() + "]")
+    text_list.push(" " + receivedString)
 })
 let background = 0
-let messageLog: string[] = []
+let text_list: string[] = []
 let messageToSend = ""
 let username = ""
 music.play(music.createSong(assets.song`tetris`), music.PlaybackMode.LoopingInBackground)
-game.showLongText("INFO: The Radio group is 16. This program only works with MakeCode compatible devices that can use MakeCode's radio feature. The micro:bit, for example, is one of these. Every version of this program SHOULD BE backwards compatible with every other version unless the Radio group is changed. Also, for some reason, the Radio function can only transmit up to 18 characters at a time. This is why I have limited the message character count. Please create an issue on GitHub if you know how to fix this problem. Have fun, and remember to post any issues on the GitHub repository! - BLOO YA   -----CONTROLS: B = Send message, A = View message logs, L/R = Switch backgrounds-----", DialogLayout.Full)
+if (randint(0, 20) == 20) {
+    game.splash("HI THERE.")
+}
+game.showLongText("INFO: The Radio group is 16. Undefined usernames crash the program. This program only works with MakeCode compatible devices that can use MakeCode's radio feature. The micro:bit, for example, is one of these. Every version of this program SHOULD BE backwards compatible with every other version unless the Radio group is changed. Also, for some reason, the Radio function can only transmit up to 18 characters at a time. This is why I have limited the message character count. Please create an issue on GitHub if you know how to fix this problem. Have fun, and remember to post any issues on the GitHub repository! - BLOO YA   -----CONTROLS: B = Send message, A = View message logs, L/R = Switch backgrounds-----", DialogLayout.Full)
 username = game.askForString("Pick a username.", 6)
 radio.setGroup(16)
 radio.sendString("" + username + " joined!")
