@@ -3,7 +3,10 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     messageToSend = "" + game.askForString("", 14) + "-" + username
     radio.sendString(messageToSend)
     console.log("Message sent!")
-    messageLog.push(messageToSend)
+    messageLog.push("" + messageToSend + "[TIME SENT: " + game.runtime() + "]")
+})
+controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
+    game.showLongText("Messages (oldest to newest): " + messageLog + "|| END OF MESSAGES", DialogLayout.Full)
 })
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     background += -1
@@ -15,7 +18,7 @@ radio.onReceivedString(function (receivedString) {
     game.showLongText(receivedString, DialogLayout.Full)
     console.log("\"Received message! Message:\"")
     console.log(receivedString)
-    messageLog.push(receivedString)
+    messageLog.push("" + messageToSend + "[TIME RECEIVED: " + game.runtime() + "]")
 })
 let background = 0
 let messageLog: string[] = []
