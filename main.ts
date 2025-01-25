@@ -1,9 +1,14 @@
 // I hate GitHub. It forced me to delete ALL MY PROGRESS made today (which was a lot!) because my school blocked it, which somehow caused a merge issue? Even though I haven't tried to commit until today. I hope whoever wrote the GitHub code that causes that to happen has a really bad day. I lost hours of work because of that guy.
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
-    messageToSend = "" + game.askForString("Type a message.", 18 - username.length) + "-" + username
-    radio.sendString(messageToSend)
-    console.log("Message sent!")
-    text_list.push(" " + messageToSend)
+    messageToSend = game.askForString("Type a message.", 18 - username.length)
+    if (messageToSend == undefined) {
+        game.splash("Cannot send blank message.")
+    } else {
+        messageToSend = "" + messageToSend + "-" + username
+        radio.sendString(messageToSend)
+        console.log("Message sent!")
+        text_list.push(" " + messageToSend)
+    }
 })
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     game.showLongText(text_list, DialogLayout.Full)
@@ -25,11 +30,28 @@ let text_list: string[] = []
 let messageToSend = ""
 let username = ""
 music.play(music.createSong(assets.song`tetris`), music.PlaybackMode.LoopingInBackground)
-if (randint(0, 20) == 20) {
-    game.splash("HI THERE.")
+let easterEggValue = randint(0, 20)
+if (easterEggValue == 0) {
+    game.splash("Welcome!")
+} else if (easterEggValue == 1) {
+    game.splash("...")
+} else if (easterEggValue == 6) {
+    game.splash("DON'T YOU DARE.")
+} else if (easterEggValue == 7) {
+    game.splash("Lucky sevens!")
+} else if (easterEggValue == 13) {
+    game.splash("You're an unlucky fellow.")
+} else if (easterEggValue == 20) {
+    game.splash("NAT 20 BABY!!")
 }
-game.showLongText("INFO: The Radio group is 16. Undefined usernames crash the program. This program only works with MakeCode compatible devices that can use MakeCode's radio feature. The micro:bit, for example, is one of these. Every version of this program SHOULD BE backwards compatible with every other version unless the Radio group is changed. Also, for some reason, the Radio function can only transmit up to 18 characters at a time. This is why I have limited the message character count. Please create an issue on GitHub if you know how to fix this problem. Have fun, and remember to post any issues on the GitHub repository! - BLOO YA   -----CONTROLS: B = Send message, A = View message logs, L/R = Switch backgrounds-----", DialogLayout.Full)
+game.showLongText("INFO: The Radio group is 16. Trying to input a disallowed or blank username twice disables your ability to send messages until you restart and try again. This program only works with MakeCode Arcade compatible devices that can use MakeCode Arcade's radio feature. The micro:bit V2, for example, is one of these. Every version of this program SHOULD BE backwards compatible with every other version unless the Radio group is changed. Also, for some reason, the Radio function can only transmit up to 18 characters at a time. This is why I have limited the message character count. Please create an issue on GitHub if you know how to fix this problem. Have fun, and remember to post any issues on the GitHub repository! - BLOO YA   -----CONTROLS: B = Send message, A = View message logs, L/R = Switch backgrounds-----", DialogLayout.Full)
 username = game.askForString("Pick a username.", 6)
+if (username == "faggot" || (username == "fag" || (username == "nigga" || (username == "nigger" || (username == "pglego" || (username == "pdiddy" || (username == "hitler" || username == undefined))))))) {
+    username = game.askForString("Not acceptable. Pick a username.", 6)
+}
+if (username == "faggot" || (username == "fag" || (username == "nigga" || (username == "nigger" || (username == "pglego" || (username == "pdiddy" || (username == "hitler" || username == undefined))))))) {
+    username = "DUNCE                    "
+}
 radio.setGroup(16)
 radio.sendString("" + username + " joined!")
 forever(function () {
