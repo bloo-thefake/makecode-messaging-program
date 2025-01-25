@@ -1,6 +1,6 @@
 // I hate GitHub. It forced me to delete ALL MY PROGRESS made today (which was a lot!) because my school blocked it, which somehow caused a merge issue? Even though I haven't tried to commit until today. I hope whoever wrote the GitHub code that causes that to happen has a really bad day. I lost hours of work because of that guy.
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
-    messageToSend = "" + game.askForString("", 14) + "-" + username
+    messageToSend = "" + game.askForString("Type a message.", 18 - username.length) + "-" + username
     radio.sendString(messageToSend)
     console.log("Message sent!")
     messageLog.push("" + messageToSend + "[TIME SENT: " + game.runtime() + "]")
@@ -25,8 +25,8 @@ let messageLog: string[] = []
 let messageToSend = ""
 let username = ""
 music.play(music.createSong(assets.song`tetris`), music.PlaybackMode.LoopingInBackground)
-game.showLongText("Just so you know: The Radio group is 16. This program only works with MakeCode compatible devices that can use MakeCode's radio feature. The micro:bit, for example, is one of these. Every version of this program SHOULD BE backwards compatible with every other version unless the Radio group is changed. Also, for some reason, the Radio function can only transmit up to 18 characters at a time. This is why I have limited the message character count to 14 and the username limit to 4, to make sure both always display properly. Please create a pull request if you know how to fix this issue. Have fun, and remember to post any issues on the Github repository! - BLOO YA    __CURRENT VERSION: 1.3__", DialogLayout.Full)
-username = game.askForString("", 4)
+game.showLongText("INFO: The Radio group is 16. This program only works with MakeCode compatible devices that can use MakeCode's radio feature. The micro:bit, for example, is one of these. Every version of this program SHOULD BE backwards compatible with every other version unless the Radio group is changed. Also, for some reason, the Radio function can only transmit up to 18 characters at a time. This is why I have limited the message character count. Please create an issue on GitHub if you know how to fix this problem. Have fun, and remember to post any issues on the GitHub repository! - BLOO YA   -----CONTROLS: B = Send message, A = View message logs, L/R = Switch backgrounds-----", DialogLayout.Full)
+username = game.askForString("Pick a username.", 6)
 radio.setGroup(16)
 radio.sendString("" + username + " joined!")
 forever(function () {
