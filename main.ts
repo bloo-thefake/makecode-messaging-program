@@ -3,10 +3,12 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     messageToSend = game.askForString("Type a message.", 18 - username.length)
     if (messageToSend == undefined) {
         game.splash("Cannot send blank message.")
+        console.log("Blank message -- did not send.")
     } else {
         messageToSend = "" + messageToSend + "-" + username
         radio.sendString(messageToSend)
         console.log("Message sent!")
+        console.log(messageToSend)
         text_list.push(" " + messageToSend)
     }
 })
@@ -25,10 +27,35 @@ radio.onReceivedString(function (receivedString) {
     console.log(receivedString)
     text_list.push(" " + receivedString)
 })
+controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
+    oldUsername = username
+    username = game.askForString("Pick a new username.", 6)
+    if (username == "faggot" || (username == "fag" || (username == "nigga" || (username == "nigger" || (username == "pglego" || (username == "pdiddy" || (username == "hitler" || username == undefined))))))) {
+        game.splash("Seriously?")
+        username = game.askForString("Not acceptable. Pick a username.", 6)
+    }
+    if (username == "faggot" || (username == "fag" || (username == "nigga" || (username == "nigger" || (username == "pglego" || (username == "pdiddy" || (username == "hitler" || username == undefined))))))) {
+        game.splash("One more chance.")
+        username = game.askForString("Pick a username.", 6)
+    }
+    if (username == "faggot" || (username == "fag" || (username == "nigga" || (username == "nigger" || (username == "pglego" || (username == "pdiddy" || (username == "hitler" || username == undefined))))))) {
+        game.splash("Bruh.")
+        username = "UNFUNNY PERSON :):):)"
+    }
+    blockSettings.writeString("userName", username)
+    radio.sendString("" + oldUsername + " is now " + username)
+})
+let oldUsername = ""
 let background = 0
 let text_list: string[] = []
 let messageToSend = ""
 let username = ""
+if (blockSettings.exists("locked")) {
+    if (blockSettings.readString("locked") == "Yes") {
+        game.splash("You locked yourself out.")
+        game.gameOver(false)
+    }
+}
 music.play(music.createSong(assets.song`tetris`), music.PlaybackMode.LoopingInBackground)
 let easterEggValue = randint(0, 20)
 if (easterEggValue == 0) {
@@ -45,15 +72,27 @@ if (easterEggValue == 0) {
     game.splash("NAT 20 BABY!!")
 }
 game.showLongText("INFO: The Radio group is 16. Trying to input a disallowed or blank username twice disables your ability to send messages until you restart and try again. This program only works with MakeCode Arcade compatible devices that can use MakeCode Arcade's radio feature. The micro:bit V2, for example, is one of these. Every version of this program SHOULD BE backwards compatible with every other version unless the Radio group is changed. Also, for some reason, the Radio function can only transmit up to 18 characters at a time. This is why I have limited the message character count. Please create an issue on GitHub if you know how to fix this problem. Have fun, and remember to post any issues on the GitHub repository! - BLOO YA   -----CONTROLS: B = Send message, A = View message logs, L/R = Switch backgrounds-----", DialogLayout.Full)
-username = game.askForString("Pick a username.", 6)
+if (blockSettings.exists("userName")) {
+    if (blockSettings.readString("userName") == "UNFUNNY PERSON :):):)") {
+        game.splash("It's okay. Try again.")
+        username = game.askForString("Pick a username.", 6)
+    } else {
+        username = blockSettings.readString("userName")
+        game.splash("Press Menu to change username.")
+    }
+} else {
+    username = game.askForString("Pick a username.", 6)
+}
 if (username == "faggot" || (username == "fag" || (username == "nigga" || (username == "nigger" || (username == "pglego" || (username == "pdiddy" || (username == "hitler" || username == undefined))))))) {
     username = game.askForString("Not acceptable. Pick a username.", 6)
 }
 if (username == "faggot" || (username == "fag" || (username == "nigga" || (username == "nigger" || (username == "pglego" || (username == "pdiddy" || (username == "hitler" || username == undefined))))))) {
+    game.splash("Aren't you so funny?")
     username = "UNFUNNY PERSON :):):)"
 }
 radio.setGroup(16)
 radio.sendString("" + username + " joined!")
+blockSettings.writeString("userName", username)
 forever(function () {
     if (background == 0) {
         scene.setBackgroundImage(assets.image`bg0`)
