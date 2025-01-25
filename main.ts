@@ -50,7 +50,7 @@ if (username == "faggot" || (username == "fag" || (username == "nigga" || (usern
     username = game.askForString("Not acceptable. Pick a username.", 6)
 }
 if (username == "faggot" || (username == "fag" || (username == "nigga" || (username == "nigger" || (username == "pglego" || (username == "pdiddy" || (username == "hitler" || username == undefined))))))) {
-    username = "DUNCE                    "
+    username = "UNFUNNY PERSON :):):)"
 }
 radio.setGroup(16)
 radio.sendString("" + username + " joined!")
