@@ -71,14 +71,14 @@ if (easterEggValue == 0) {
 } else if (easterEggValue == 20) {
     game.splash("NAT 20 BABY!!")
 }
-game.showLongText("INFO: The Radio group is 16. Trying to input a disallowed or blank username twice disables your ability to send messages until you restart and try again. This program only works with MakeCode Arcade compatible devices that can use MakeCode Arcade's radio feature. The micro:bit V2, for example, is one of these. Every version of this program SHOULD BE backwards compatible with every other version unless the Radio group is changed. Also, for some reason, the Radio function can only transmit up to 18 characters at a time. This is why I have limited the message character count. Please create an issue on GitHub if you know how to fix this problem. Have fun, and remember to post any issues on the GitHub repository! - BLOO YA   -----CONTROLS: B = Send message, A = View message logs, L/R = Switch backgrounds-----", DialogLayout.Full)
+game.showLongText("INFO: The Radio group is 16. Trying to input a disallowed or blank username twice disables your ability to send messages until you restart and try again. This program only works with MakeCode Arcade compatible devices that can use MakeCode Arcade's radio feature. The micro:bit V2, for example, is one of these. Every version of this program SHOULD BE backwards compatible with every other version unless the Radio group is changed. Also, for some reason, the Radio function can only transmit up to 18 characters at a time. This is why I have limited the message character count. Please create an issue on GitHub if you know how to fix this problem. Have fun, and remember to post any issues on the GitHub repository! - BLOO YA   -----CONTROLS: B = Send message, A = View message logs, L/R = Switch backgrounds, Menu = Choose new username-----", DialogLayout.Full)
 if (blockSettings.exists("userName")) {
     if (blockSettings.readString("userName") == "UNFUNNY PERSON :):):)") {
         game.splash("It's okay. Try again.")
         username = game.askForString("Pick a username.", 6)
     } else {
+        game.showLongText("You can press the Menu button to pick a new username.", DialogLayout.Bottom)
         username = blockSettings.readString("userName")
-        game.splash("Press Menu to change username.")
     }
 } else {
     username = game.askForString("Pick a username.", 6)
